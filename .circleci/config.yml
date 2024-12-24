@@ -8,13 +8,12 @@ orbs:
 jobs:
   build-and-deploy:
     docker:
-      - image: node:18
+      - image: circleci/node:18
         environment:
           NODE_ENV: production
     steps:
       - checkout
-      - node/install:
-          version: "18"
+      - node/install # Removed `version` argument; the orb automatically uses the correct version
       - aws-cli/setup
       - run:
           name: Front-End Install
