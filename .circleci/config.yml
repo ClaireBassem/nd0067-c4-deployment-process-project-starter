@@ -9,11 +9,12 @@ jobs:
   build-and-deploy:
     docker:
       - image: node:18
-        docker_layer_caching: true
+        environment:
+          NODE_ENV: production
     steps:
+      - checkout
       - node/install:
           version: "18"
-      - checkout
       - aws-cli/setup
       - run:
           name: Front-End Install
@@ -45,7 +46,6 @@ workflows:
   build-and-deploy:
     jobs:
       - build-and-deploy:
-          context: aws
           filters:
             branches:
               only:
